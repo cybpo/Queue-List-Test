@@ -1,0 +1,188 @@
+{
+  "data": {
+    "album": {
+      "tracks": [
+        {
+          "id": "916409",
+          "artist": "Eminem",
+          "title": "Curtains Up (Skit)",
+          "duration": 29,
+          "media": {
+            "id": "916409"
+          }
+        },
+        {
+          "id": "916412",
+          "artist": "Eminem",
+          "title": "White America",
+          "duration": 324,
+          "media": {
+            "id": "916412"
+          }
+        },
+        {
+          "id": "916413",
+          "artist": "Eminem",
+          "title": "Business",
+          "duration": 251,
+          "media": {
+            "id": "916413"
+          }
+        },
+        {
+          "id": "916414",
+          "artist": "Eminem",
+          "title": "Cleanin' Out My Closet",
+          "duration": 297,
+          "media": {
+            "id": "916414"
+          }
+        },
+        {
+          "id": "916416",
+          "artist": "Eminem",
+          "title": "Square Dance",
+          "duration": 324,
+          "media": {
+            "id": "916416"
+          }
+        },
+        {
+          "id": "916418",
+          "artist": "Eminem",
+          "title": "The Kiss (Skit)",
+          "duration": 75,
+          "media": {
+            "id": "916418"
+          }
+        },
+        {
+          "id": "916419",
+          "artist": "Eminem",
+          "title": "Soldier",
+          "duration": 226,
+          "media": {
+            "id": "916419"
+          }
+        },
+        {
+          "id": "916420",
+          "artist": "Eminem",
+          "title": "Say Goodbye Hollywood",
+          "duration": 272,
+          "media": {
+            "id": "916420"
+          }
+        },
+        {
+          "id": "916422",
+          "artist": "Eminem",
+          "title": "Drips",
+          "duration": 285,
+          "media": {
+            "id": "916422"
+          }
+        },
+        {
+          "id": "916424",
+          "artist": "Eminem",
+          "title": "Without Me",
+          "duration": 290,
+          "media": {
+            "id": "916424"
+          }
+        },
+        {
+          "id": "916425",
+          "artist": "Eminem",
+          "title": "Paul Rosenberg (Skit)",
+          "duration": 22,
+          "media": {
+            "id": "916425"
+          }
+        },
+        {
+          "id": "916426",
+          "artist": "Eminem",
+          "title": "Sing For The Moment",
+          "duration": 339,
+          "media": {
+            "id": "916426"
+          }
+        },
+        {
+          "id": "916427",
+          "artist": "Eminem",
+          "title": "Superman",
+          "duration": 350,
+          "media": {
+            "id": "916427"
+          }
+        },
+        {
+          "id": "916436",
+          "artist": "Eminem",
+          "title": "Hailie's Song",
+          "duration": 320,
+          "media": {
+            "id": "916436"
+          }
+        },
+        {
+          "id": "916437",
+          "artist": "Eminem",
+          "title": "Steve Berman (Skit)",
+          "duration": 33,
+          "media": {
+            "id": "916437"
+          }
+        },
+        {
+          "id": "916442",
+          "artist": "Eminem",
+          "title": "When The Music Stops",
+          "duration": 268,
+          "media": {
+            "id": "916442"
+          }
+        },
+        {
+          "id": "916444",
+          "artist": "Eminem",
+          "title": "Say What You Say",
+          "duration": 309,
+          "media": {
+            "id": "916444"
+          }
+        },
+        {
+          "id": "916445",
+          "artist": "Eminem",
+          "title": "'Till I Collapse",
+          "duration": 297,
+          "media": {
+            "id": "916445"
+          }
+        },
+        {
+          "id": "916447",
+          "artist": "Eminem",
+          "title": "My Dad's Gone Crazy",
+          "duration": 266,
+          "media": {
+            "id": "916447"
+          }
+        },
+        {
+          "id": "916448",
+          "artist": "Eminem",
+          "title": "Curtains Close",
+          "duration": 60,
+          "media": {
+            "id": "916448"
+          }
+        }
+      ]
+    }
+  }
+}
