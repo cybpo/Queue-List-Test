@@ -3,24 +3,24 @@ import java.io.File
 import java.io.FileReader
 fun main(args: Array<String>) {
     println("           *-------Hello Deezer World!-------*")
-    // Creation of a list of tracks to use it as examples.
-    val Track1= Track("12312","Eminem","Oui",60,"3231")
-    val Track2= Track("12412","Eminem","Non",61,"3241")
-    val Track3= Track("12512","Eminem","Maybe",62,"3251")
-    var listOfTracks = mutableListOf<Track>(Track1,Track2,Track3)
-    var QueueList = Queue(listOfTracks)
+    var QueueList = Queue()
 
     QueueList.getCurrentTrack()
-    println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  4) Quit")
+    println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  \n " +
+            "4) Remove Song on the Queue     5) Add Songs on the Queue     6) Quit")
     var userChoice=readLine() // The user enter a number between 1 and 4
 
-    while ((userChoice!= "4")){
+    while ((userChoice!= "6")){
         when(userChoice){
             "1" -> QueueList.previousTrack()
             "2" -> QueueList.getCurrentTrack()
             "3" -> QueueList.nextTrack()
+            "4" -> QueueList.showTracksToRemove()
+            "5" -> QueueList.showTracksToAdd()
+            "6" -> break
         }
-        println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  4) Quit")
+        println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  \n " +
+                "4) Remove Song on the Queue     5) Add Songs on the Queue     6) Quit")
         userChoice=readLine()
     }
 
