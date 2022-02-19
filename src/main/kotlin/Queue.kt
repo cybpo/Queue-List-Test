@@ -23,6 +23,7 @@ class Queue {
     }
 
     fun getCurrentTrack() {
+        //if (currentQueueList.size == 0 && ) currentTrack = trackZero
         println("\n         CURRENT TRACK        ")
         println(currentTrack.artist)
         println(currentTrack.title)
@@ -33,7 +34,7 @@ class Queue {
 
     fun next(): DataResult.Data.Album.Track {
         if(currentQueueList.size > 1){ //If the Queue is not empty, we remove the track from the queue and put it as current track
-            if (currentTrack.duration != 0)previousList.add(currentTrack)
+            previousList.add(currentTrack)
             currentQueueList.removeFirst()
             currentTrack = currentQueueList[0]
         }else if(currentQueueList.size == 1){ // Telling the user when this is the last song of the Queue
@@ -86,7 +87,8 @@ class Queue {
             showTracks(currentQueueList)
             println("\n Choose the number of the track you want to remove from the Queue. Push 0 to return ")
             userChoice = readLine()!!.toInt()
-            removeAt(userChoice-1)
+            if (userChoice != 0 ) removeAt(userChoice-1)
+            if (userChoice == 1 && currentQueueList.size != 0) currentTrack = currentQueueList[0]
         }
         if (currentQueueList.size<= 0){
             currentTrack = trackZero
