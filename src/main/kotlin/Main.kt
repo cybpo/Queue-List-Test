@@ -1,34 +1,32 @@
-import java.io.File
-
-import java.io.FileReader
 fun main(args: Array<String>) {
     println("           *-------Hello Deezer World!-------*")
-    var QueueList = Queue()
+    var queue = Queue()
+    var userChoice = ""// The user enter a number between 1 and 6
+    queue.loadTracks()
 
-    QueueList.getCurrentTrack()
-    println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  \n " +
-            "4) Remove Song on the Queue     5) Add Songs on the Queue     6) Quit")
-    var userChoice=readLine() // The user enter a number between 1 and 4
 
-    while ((userChoice!= "6")){
+    while ((userChoice!= "5")){
+        queue.getCurrentTrack()
+        println("\n 1) Previous Song     2)  Next Song       \n " +
+                "3) Remove Song on the Queue     4) Add Songs on the Queue     5) Quit")
+        userChoice= readLine().toString()
         when(userChoice){
-            "1" -> QueueList.previousTrack()
-            "2" -> QueueList.getCurrentTrack()
-            "3" -> QueueList.nextTrack()
-            "4" -> QueueList.showTracksToRemove()
-            "5" -> QueueList.showTracksToAdd()
-            "6" -> break
+            "1" -> queue.previous()
+            "2" -> queue.next()
+            "3" -> queue.showTracksToRemove()
+            "4" -> queue.showTracksToAdd()
         }
-        println("\n 1) Previous Song     2) Get The Current Track    3) Next Song  \n " +
-                "4) Remove Song on the Queue     5) Add Songs on the Queue     6) Quit")
-        userChoice=readLine()
+
     }
 
-    println("\n See you soon ! Push a button to quit...")
-    readLine()
+    println("\n See you soon ! \n")
+
 
 
     // Try adding program arguments via Run/Debug configuration.
     // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
     println("Program arguments: ${args.joinToString()}")
 }
+
+
+

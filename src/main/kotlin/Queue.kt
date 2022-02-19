@@ -1,94 +1,123 @@
-import Track
-class Queue() {
-    private var currentList = mutableListOf<Track>()
-    private var previousList = mutableListOf<Track>()
-    private val  listOfTracks = ListOfTracks()
-    var currentTrack = Track("","","",0,"")
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+import java.io.File
 
-    fun getCurrentTrack(){
+class Queue {
+    private lateinit var jsonData : DataResult
+    private var currentQueueList = mutableListOf<DataResult.Data.Album.Track>() // Actual Queue
+    private var userChoice = -1 //
+    private val trackZero = DataResult.Data.Album.Track("","---","---",0,ID("")) //Empty Track when no songs are playing
+    private var previousList = mutableListOf<DataResult.Data.Album.Track>() // Tracks the user had already listen
+    private var listOfTracks = mutableListOf<DataResult.Data.Album.Track>() // Tracks the user can add on the queue
+    private var currentTrack = trackZero
+
+    fun loadTracks() { //Loading tracks from the json file
+        try{
+            val filename = "data/tracks.json"
+            val jsonString: String = File(filename).readText(Charsets.UTF_8)
+            jsonData = Json.decodeFromString(jsonString)
+            listOfTracks = jsonData.data.album.tracks
+        }catch(e:Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun getCurrentTrack() {
         println("\n         CURRENT TRACK        ")
-        println("Artist : " + currentTrack.artist)
-        println("Titre : " + currentTrack.title)
-        println("Duration : " + currentTrack.duration + " s" )
+        println(currentTrack.artist)
+        println(currentTrack.title)
+        println(conversion(currentTrack.duration))
+
     }
 
 
-    fun nextTrack(): Track {
-        if(currentList.size > 1){ //If the Queue is not empty, we remove the track from the queue and put it as current track
-            previousList?.add(currentTrack)
-            currentList?.removeFirst()
-            currentTrack = currentList[0]
-            getCurrentTrack()
-        }else if(currentList.size == 1){ // Telling the user when this is the last song of the Queue
-            previousList?.add(currentTrack)
-            currentList?.removeFirst()
-            getCurrentTrack()
+    fun next(): DataResult.Data.Album.Track {
+        if(currentQueueList.size > 1){ //If the Queue is not empty, we remove the track from the queue and put it as current track
+            if (currentTrack.duration != 0)previousList.add(currentTrack)
+            currentQueueList.removeFirst()
+            currentTrack = currentQueueList[0]
+        }else if(currentQueueList.size == 1){ // Telling the user when this is the last song of the Queue
+            previousList.add(currentTrack)
+            currentQueueList.removeFirst()
+            currentTrack = trackZero
             println("This was the last track of the queue. Please select a track\n" +
                     " Push a button to continue...")
             readLine()
-        }else { //  Warning the user that there is no songs left in the queue.
+        }else {
             println("There is no song on the Queue. Please select a track\n" +
                     " Push a button to continue...")
             readLine()
-            getCurrentTrack()
         }
         return currentTrack
     }
 
 
-    fun previousTrack(): Track {
+    fun previous(): DataResult.Data.Album.Track {
         if (previousList.size > 0){ // Checking if there is songs in the list of songs that the user already listened to.
             currentTrack = previousList[previousList.lastIndex]
-            previousList?.removeLast()
-            getCurrentTrack()
-        }else {
+            previousList.removeLast()
+        }else{
+            currentTrack = trackZero
             println("No track was played before this one. You need to select a track. \n Push a button to continue...")
             readLine()
-            getCurrentTrack()
         }
         return currentTrack
     }
 
 
     fun showTracksToAdd(){// Showing all the tracks from the database so the user can choose the one he wants to add to the queue
-        var i = 0
-
-        for (element in listOfTracks.listOfTracks){
-            i++
-            println( "Track $i  : \n Artist : ${element.artist} \n Title : ${element.title}" )
+        while (userChoice != 0){
+            showTracks(listOfTracks)
+            println("\n Choose the number of the track you want to add on the Queue. Push 0 to quit...")
+            userChoice = readLine()!!.toInt()
+            if (userChoice !=0){
+                add(listOfTracks[userChoice-1]) // Adding the track on the Queue
+                if(currentQueueList.size ==1) currentTrack = currentQueueList[0] // The first element of the current List represents the current track.
+                println("Track added. Push a button to continue")
+                readLine()
+            }
         }
-        println("\n Choose the number of the track you want to add on the Queue")
-        var userChoice = readLine()!!.toInt()
-
-        add(listOfTracks.listOfTracks[userChoice-1]) // Adding the track on the Queue
-        if(currentList.size ==1) currentTrack = currentList[0] // If we add only one track on the Queue, we consider it as the current Track
-        getCurrentTrack()
+        userChoice = -1
     }
-
 
     fun showTracksToRemove(){ // Showing all the tracks from the Queue so the user can choose the one he wants to remove from it
-        var i = 0
-        if (currentList.size== 0){ // If the Queue is empty, we can't remove any songs from it
-            println("The Queue is empty. Please add songs on it .Push a button to continue...")
-            readLine()
-        }else{
-            for (element in currentList){
-                i++
-                println( "Track $i  : \n Artist : ${element.artist} \n Title : ${element.title}" )
-            }
-            println("\n Choose the number of the track you want to remove from the Queue")
-            var userChoice = readLine()!!.toInt()
-
+        while((currentQueueList.size != 0) && (userChoice !=0)){
+            println("----------------- QUEUE -----------------")
+            showTracks(currentQueueList)
+            println("\n Choose the number of the track you want to remove from the Queue. Push 0 to return ")
+            userChoice = readLine()!!.toInt()
             removeAt(userChoice-1)
         }
-        getCurrentTrack()
+        if (currentQueueList.size<= 0){
+            currentTrack = trackZero
+            println("The Queue is empty. Push a button to continue...")
+            readLine()
+        }
+        userChoice=-1
     }
 
-    fun removeAt( i : Int){
-    currentList.removeAt(i)
+    private fun showTracks(list : MutableList<DataResult.Data.Album.Track>){
+        for (i in 1..list.size){
+            println( "\nTrack $i  : \n Artist : ${list[i-1].artist} \n Title : ${list[i-1].title}" )
+        }
+    }
+    private fun removeAt(i : Int){
+        currentQueueList.removeAt(i)
     }
 
-    fun add(newTrack : Track){
-        currentList.add(newTrack)
+    private fun add(newTrack : DataResult.Data.Album.Track){
+        currentQueueList.add(newTrack)
+    }
+
+    private fun conversion(duration: Int): String { // converting seconds to minutes
+        var minutes = 0
+        val seconds: Int
+        if (duration >= 60) {
+            minutes = duration / 60
+            seconds = duration - minutes * 60
+        } else {
+            seconds = duration
+        }
+        return "$minutes : $seconds s"
     }
 }
